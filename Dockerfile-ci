@@ -1,0 +1,9 @@
+FROM node:8.9-alpine
+RUN mkdir -p /app
+ADD package.json /app
+ADD package-lock.json /app
+WORKDIR /app
+RUN npm install
+VOLUME [ "/app/test-reports" ]
+ADD . /app
+

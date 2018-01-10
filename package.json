@@ -4,6 +4,7 @@
   "description": "https://ngeor.wordpress.com/2017/11/13/cd-with-helm-part-0-hello-world-app/",
   "main": "index.js",
   "scripts": {
+    "lint-junit": "eslint -f junit -o test-reports/eslint.xml .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ."
   },
