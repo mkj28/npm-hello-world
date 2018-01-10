@@ -1,0 +1,28 @@
+{
+  "name": "npm-hello-world",
+  "version": "1.0.0",
+  "description": "https://ngeor.wordpress.com/2017/11/13/cd-with-helm-part-0-hello-world-app/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkj28/npm-hello-world.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkj28/npm-hello-world/issues"
+  },
+  "homepage": "https://github.com/mkj28/npm-hello-world#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
