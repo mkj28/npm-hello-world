@@ -22,7 +22,7 @@ steps:
         npm --version
         node --version
         npm install
-        npm run lint
+        npm run lint-junit
     on_success:
       metadata:
         set:
