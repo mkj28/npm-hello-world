@@ -7,9 +7,16 @@ steps:
     working_directory: ./
     dockerfile: Dockerfile
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+  BuildingCIDockerImage:
+    title: Building CI Docker Image
+    type: build
+    image_name: mkj28/npmhelloworld
+    working_directory: ./
+    dockerfile: Dockerfile-ci
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
   RunningUnitTests:
     title: Running Unit Tests
-    image: '${{BuildingDockerImage}}'
+    image: '${{BuildingCIDockerImage}}'
     working_directory: IMAGE_WORK_DIR
     entry_point:
       - /bin/sh
@@ -21,7 +28,6 @@ steps:
         # npm test executed during build step
         npm --version
         node --version
-        npm install
         npm run lint-junit
     on_success:
       metadata:
