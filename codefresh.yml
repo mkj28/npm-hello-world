@@ -10,7 +10,7 @@ steps:
   BuildingCIDockerImage:
     title: Building CI Docker Image
     type: build
-    image_name: mkj28/npmhelloworld
+    image_name: mkj28/npmhelloworld-ci
     working_directory: ./
     dockerfile: Dockerfile-ci
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
