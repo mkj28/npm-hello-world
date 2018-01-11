@@ -18,17 +18,9 @@ steps:
     title: Running Unit Tests
     image: '${{BuildingCIDockerImage}}'
     working_directory: IMAGE_WORK_DIR
-    entry_point:
-      - /bin/sh
-      - /codefresh/volume/cf-generated/unit_test_script
-    create_file:
-      path: /codefresh/volume/cf-generated
-      name: unit_test_script
-      content: |-
-        # npm test executed during build step
-        npm --version
-        node --version
-        npm run lint-junit
+    commands:
+      - node --version
+      - npm run lint
     on_success:
       metadata:
         set:
