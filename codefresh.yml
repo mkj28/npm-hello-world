@@ -26,9 +26,20 @@ steps:
         set:
           - '${{BuildingDockerImage.imageId}}':
               - CF_QUALITY: true
+              - lint: true
     on_fail:
       metadata:
         set:
           - '${{BuildingDockerImage.imageId}}':
               - CF_QUALITY: false
+              - lint: false
+  TaggingAsLatest:
+    type: push
+    title: Tag as Latest
+    candidate: ${{BuildingDockerImage}}
+    tag: latest
+    when:
+      branch:
+        only:
+          - master
 
