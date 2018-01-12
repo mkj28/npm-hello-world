@@ -1,22 +1,22 @@
 version: '1.0'
 steps:
-  BuildingDockerImage:
+  build:
     title: Building Docker Image
     type: build
     image_name: mkj28/npmhelloworld
     working_directory: ./
     dockerfile: Dockerfile
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-  BuildingCIDockerImage:
+  build_ci:
     title: Building CI Docker Image
     type: build
     image_name: mkj28/npmhelloworld-ci
     working_directory: ./
     dockerfile: Dockerfile-ci
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-  RunningUnitTests:
+  unit_test:
     title: Running Unit Tests
-    image: '${{BuildingCIDockerImage}}'
+    image: '${{build_ci}}'
     working_directory: IMAGE_WORK_DIR
     commands:
       - node --version
@@ -24,20 +24,31 @@ steps:
     on_success:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{build.imageId}}':
               - CF_QUALITY: true
               - lint: true
               - CodeCoverage: 80%
     on_fail:
       metadata:
         set:
-          - '${{BuildingDockerImage.imageId}}':
+          - '${{build.imageId}}':
               - CF_QUALITY: false
               - lint: false
-  TaggingAsLatest:
+  create_namespace:
+      title: Creating new namespace
+      image: codefresh/kube-helm:master
+      fail_fast: false
+      commands:
+        - kubectl config use-context ${{KUBE_CONTEXT}}
+        - kubectl create namespace ${{CF_BRANCH_TAG_NORMALIZED}}
+        - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace ${{CF_BRANCH_TAG_NORMALIZED}} -f -
+        - kubectl get secret regsecret -o json | jq '.metadata.namespace = "${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace ${{CF_BRANCH_TAG_NORMALIZED}} -f -
+  release_to_env:
+    image: codefresh/plugin-helm:2.7.2
+  tag_latest:
     type: push
     title: Tag as Latest
-    candidate: ${{BuildingDockerImage}}
+    candidate: ${{build}}
     tag: latest
     registry: quay
     when:
