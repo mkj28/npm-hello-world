@@ -38,6 +38,7 @@ steps:
     title: Tag as Latest
     candidate: ${{BuildingDockerImage}}
     tag: latest
+    registry: quay
     when:
       branch:
         only:
