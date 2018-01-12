@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "npmhelloworld.fullname" . }}
+  name: {{ template "npmhelloworld-helm.fullname" . }}
   labels:
-    app: {{ template "npmhelloworld.name" . }}
+    app: {{ template "npmhelloworld-helm.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "npmhelloworld.name" . }}
+        app: {{ template "npmhelloworld-helm.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
