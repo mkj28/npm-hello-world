@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: npmhelloworld
+  labels:
+    app: npmhelloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: npmhelloworld
+  template:
+    metadata:
+      labels:
+        app: npmhelloworld
+    spec:
+      containers:
+      - name: npmhelloworld
+        image: r.cfcr.io/gladly/mkj28/npmhelloworld:master
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: regsecret
