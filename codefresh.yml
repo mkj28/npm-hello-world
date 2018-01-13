@@ -40,9 +40,9 @@ steps:
       fail_fast: false
       commands:
         - kubectl config use-context ${{KUBE_CONTEXT}}
-        - kubectl create namespace ${{CF_BRANCH_TAG_NORMALIZED}}
-        - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace ${{CF_BRANCH_TAG_NORMALIZED}} -f -
-        - kubectl get secret regsecret -o json | jq '.metadata.namespace = "${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace ${{CF_BRANCH_TAG_NORMALIZED}} -f -
+        - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
+        - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
+        - kubectl get secret regsecret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
   release_to_env:
     image: codefresh/plugin-helm:2.7.2
   tag_latest:
