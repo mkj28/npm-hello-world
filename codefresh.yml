@@ -40,6 +40,10 @@ steps:
       fail_fast: false
       environment:
         - KUBE_CONTEXT=cluster-1@mmatyjek
+        - CHART_NAME=helm/npmhelloworld-helm/
+        - RELEASE_NAME=npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
+        - KUBE_CONTEXT=cluster-1@mmatyjek
+        - NAMESPACE=npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
       commands:
         - kubectl config use-context ${{KUBE_CONTEXT}}
         - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} || true
