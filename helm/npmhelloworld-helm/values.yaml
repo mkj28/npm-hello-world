@@ -3,10 +3,10 @@
 # Declare variables to be passed into your templates.
 replicaCount: 2
 image:
-  repository: quay.io/mkj28/npmhelloworld
+  repository: r.cfcr.io/gladly/mkj28/npmhelloworld
   tag: latest
   pullPolicy: IfNotPresent
-  pullSecret: mkj28-pull-secret
+  pullSecret: regsecret
 service:
   name: npmhelloworld
   type: ClusterIP
