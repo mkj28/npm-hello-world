@@ -7,6 +7,11 @@ steps:
     working_directory: ./
     dockerfile: Dockerfile
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_BUILD_ID}}'
+    metadata:
+      set:
+        - commit_message: ${{CF_COMMIT_MESSAGE}}
+        - is_master:
+            evaluate: "'${{CF_BRANCH}}' == 'master'"
   build_ci:
     title: Building CI Docker Image
     type: build
@@ -39,7 +44,7 @@ steps:
     image: '${{build_ci}}'
     working_directory: IMAGE_WORK_DIR
     commands:
-      - node --version
+      - echo Running Integration Tests
     on_success:
       metadata:
         set:
@@ -55,7 +60,7 @@ steps:
     image: '${{build_ci}}'
     working_directory: IMAGE_WORK_DIR
     commands:
-      - node --version
+      - echo Running IE11 Tests
     on_success:
       metadata:
         set:
