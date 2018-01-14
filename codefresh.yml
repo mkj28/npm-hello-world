@@ -39,7 +39,6 @@ steps:
       image: codefresh/kube-helm:master
       fail_fast: false
       commands:
-        - set +e
         - kubectl config use-context ${{KUBE_CONTEXT}}
         - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
         - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
