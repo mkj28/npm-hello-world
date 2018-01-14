@@ -6,7 +6,7 @@ steps:
     image_name: mkj28/npmhelloworld
     working_directory: ./
     dockerfile: Dockerfile
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_BUILD_ID}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
     metadata:
       set:
         - commit_message: ${{CF_COMMIT_MESSAGE}}
@@ -18,7 +18,7 @@ steps:
     image_name: mkj28/npmhelloworld-ci
     working_directory: ./
     dockerfile: Dockerfile-ci
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_BUILD_ID}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
   unit_test:
     title: Running Unit Tests
     image: '${{build_ci}}'
