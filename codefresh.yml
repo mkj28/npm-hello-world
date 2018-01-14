@@ -68,8 +68,9 @@ steps:
               - IE11: false
     when:
       condition:
-        all:
-          runIE11Tests: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ie11") == true'
+        any:
+          mentionIE11InCommit: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ie11") == true'
+          masterBranch: 'match("${{CF_BRANCH}}", "^master$", true) == true'
   create_namespace:
       title: Creating new namespace
       image: codefresh/kube-helm:master
