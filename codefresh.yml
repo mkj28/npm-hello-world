@@ -9,10 +9,9 @@ steps:
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_BUILD_ID}}'
     metadata:
       set:
-        - '${{build.imageId}}':
-            - commit_message: ${{CF_COMMIT_MESSAGE}}
-            - is_master:
-                evaluate: "'${{CF_BRANCH}}' == 'master'"
+        - commit_message: ${{CF_COMMIT_MESSAGE}}
+        - is_master:
+            evaluate: "'${{CF_BRANCH}}' == 'master'"
   build_ci:
     title: Building CI Docker Image
     type: build
@@ -34,10 +33,6 @@ steps:
               - CF_QUALITY: true
               - Lint: true
               - CodeCoverage: 80%
-              - commit_message: ${{CF_COMMIT_MESSAGE}}
-              - exit_code: 0
-              - is_main:
-                  evaluate: "'${{CF_BRANCH}}' == 'main'"
     on_fail:
       metadata:
         set:
