@@ -38,9 +38,11 @@ steps:
       title: Creating new namespace
       image: codefresh/kube-helm:master
       fail_fast: false
+      environment:
+        - KUBE_CONTEXT=cluster-1@mmatyjek
       commands:
         - kubectl config use-context ${{KUBE_CONTEXT}}
-        - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
+        - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} || true
         - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
         - kubectl get secret regsecret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
   tag_latest:
