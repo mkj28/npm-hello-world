@@ -43,8 +43,8 @@ steps:
       commands:
         - kubectl config use-context $KUBE_CONTEXT
         - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} || true
-        - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
-        - kubectl get secret regsecret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
+        - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f - || true
+        - kubectl get secret regsecret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f - || true
   tag_latest:
     type: push
     title: Tag as Latest
