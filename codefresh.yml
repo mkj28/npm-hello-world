@@ -43,8 +43,6 @@ steps:
         - kubectl create namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
         - kubectl get secret mkj28-pull-secret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
         - kubectl get secret regsecret -o json | jq '.metadata.namespace = "npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}"' | kubectl create --namespace npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}} -f -
-  release_to_env:
-    image: codefresh/plugin-helm:2.7.2
   tag_latest:
     type: push
     title: Tag as Latest
@@ -55,4 +53,11 @@ steps:
       branch:
         only:
           - master
-
+  release_to_env:
+    image: codefresh/plugin-helm:2.7.2
+    working_directory: ./
+    environment:
+      - CHART_NAME=helm/npmhelloworld-helm/
+      - RELEASE_NAME=npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
+      - KUBE_CONTEXT=cluster-1@mmatyjek
+      - NAMESPACE=npmhelloworld-${{CF_BRANCH_TAG_NORMALIZED}}
