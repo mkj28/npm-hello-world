@@ -40,7 +40,7 @@ steps:
               - CF_QUALITY: false
               - Lint: false
   integration_test:
-    title: Running Integration Tests
+    title: Running Integration Test
     image: '${{build_ci}}'
     working_directory: IMAGE_WORK_DIR
     commands:
